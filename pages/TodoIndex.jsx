@@ -8,15 +8,16 @@ import { DataTable } from "../cmps/data-table/DataTable.jsx"
 import { todoService } from "../services/todo.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { SET_FILTER_BY } from "../store/reducers/todo.reducer.js"
-import { loadTodos, removeTodoOptimistic } from "../store/actions/todo.actions.js"
+import { loadTodos, removeTodoOptimistic, updateTodo } from "../store/actions/todo.actions.js"
+import { setBalance } from '../store/actions/user.actions.js'
 
 export function TodoIndex() {
 
     const todos = useSelector(storeState => storeState.todoModule.todos)
     const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
     const isLoading = useSelector(storeState => storeState.todoModule.isLoading)
-    const balance = useSelector(storeState => storeState.userModule.loggedInUser ? storeState.userModule.loggedInUser.balance :null)
-
+    const user = useSelector(storeState => storeState.userModule.loggedInUser)
+    const balance = user ? user.balance : null
     const dispatch = useDispatch()
 
     // Special hook for accessing search-params:
@@ -36,19 +37,13 @@ export function TodoIndex() {
     }
 
     function onToggleTodo(todo) {
-        const todoToSave = { ...todo, isDone: !todo.isDone }
-        todoService.save(todoToSave) //needs to be an action
-            .then((savedTodo) => {
-                dispatch(loadTodos())
-                showSuccessMsg(`Todo is ${(savedTodo.isDone) ? 'done' : 'back on your list'}`)
-                if (savedTodo.isDone) {
-                    dispatch(updateUserBalance(user._id, user.balance + 5))
-                }
+        const todoToUpdate = { ...todo, isDone: !todo.isDone }
+        updateTodo(todoToUpdate)
+            .then(() => {
+                setBalance(user._id, user.balance + 5)
+
             })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot toggle todo ' + todo._id)
-            })
+            .catch(err => { console.log('err2:', err) })
     }
 
     function setFilterBy(filterBy) {

@@ -51,7 +51,6 @@ function getLoggedinUser() {
 function SetUserBalance(userId, balance){
     return storageService.get(STORAGE_KEY, userId)
     .then(user => {
-        console.log('user service -> SetUserBalance -> user:', user)
         user.balance = balance
         return storageService.put(STORAGE_KEY, user)
     })

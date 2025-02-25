@@ -32,18 +32,13 @@ export function AppHeader() {
         dispatch({ type: 'SET_USER', user })
     }
 
-    function test() {
-        dispatch(setBalance(user._id, user.balance + 5))
-    }
-
     return (
         <header className="app-header full main-layout">
             <section className="header-container">
                 <h1>React Todo App</h1>
-                <button onClick={test}>123</button>
                 {user ? (
                     < section >
-                        <Link to={`/user/${user._id}`}>Hello {user.fullname}, your balance is {balance}</Link>
+                        <Link to={`/user/${user._id}`}>Hello {user.fullname}, your balance is {user.balance}</Link>
                         <button onClick={onLogout}>Logout</button>
                     </ section >
                 ) : (

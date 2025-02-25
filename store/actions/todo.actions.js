@@ -18,11 +18,15 @@ export function loadTodos() {
             .finally(() => store.dispatch({ type: SET_IS_LOADING, isLoading: false }))
 }
 
-export function setTodos(){
-
-}
-export function updateTodo(){
+export function updateTodo(todo){
     store.dispatch({ type: UPDATE_TODO, todo })
+    return todoService.save(todo)
+            .catch(err => {
+                const unToggledTodo = { ...todo, isDone: !todo.isDone }
+                store.dispatch({ type: UPDATE_TODO, unToggledTodo })
+                console.log('Cannot update todo', err)
+                throw err
+            })
 }
 
 export function removeTodoOptimistic(todoId) {
