@@ -26,9 +26,13 @@ export function TodoDetails() {
     }
 
     function onBack() {
-        // If nothing to do here, better use a Link
         navigate('/todo')
-        // navigate(-1)
+    }
+
+    function onColorPickerChange(ev) {
+        const updatedTodo = { ...todo, color: ev.target.value }
+        setTodo(updatedTodo)
+        todoService.save(updatedTodo)
     }
 
     if (!todo) return <div>Loading...</div>
@@ -36,6 +40,14 @@ export function TodoDetails() {
         <section className="todo-details">
             <h1 className={(todo.isDone)? 'done' : ''}>{todo.txt}</h1>
             <h2>{(todo.isDone)? 'Done!' : 'In your list'}</h2>
+            <label htmlFor="colorPicker">Pick a color for your todo:</label>
+            <input 
+                type="color" 
+                id="colorPicker" 
+                name="colorPicker" 
+                value={todo.color || '#ffffff'} 
+                onChange={onColorPickerChange}
+            />
 
             <h1>Todo importance: {todo.importance}</h1>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim rem accusantium, itaque ut voluptates quo? Vitae animi maiores nisi, assumenda molestias odit provident quaerat accusamus, reprehenderit impedit, possimus est ad?</p>

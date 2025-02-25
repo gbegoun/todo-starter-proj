@@ -3,12 +3,11 @@ const { Link, NavLink } = ReactRouterDOM
 const { useNavigate } = ReactRouter
 const { useSelector, useDispatch } = ReactRedux
 
-// import { userService }  from '../services/user.service.js'
 import { logout } from '../store/actions/user.actions.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
 import { LoginSignup }  from './LoginSignup.jsx'
 import { UserMsg }      from "./UserMsg.jsx"
-import { setBalance } from '../store/actions/user.actions.js'
+
 export function AppHeader() {
 
     const user = useSelector(storeState => storeState.userModule.loggedInUser)

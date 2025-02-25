@@ -50,6 +50,12 @@ export function TodoIndex() {
         dispatch({ type: SET_FILTER_BY, filterBy })
     }
 
+    function onColorPickerChange(color, todo){
+        const updatedTodo = { ...todo, color: color }
+        updateTodo(updatedTodo)
+        // todoService.save(updatedTodo)
+    }
+
     return (
         <section className="todo-index">
             <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
@@ -59,7 +65,7 @@ export function TodoIndex() {
             <h2>Todos List</h2>
             {!isLoading
                 ? <React.Fragment>
-                    <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onToggleTodo={onToggleTodo} />
+                    <TodoList todos={todos} onRemoveTodo={onRemoveTodo} onToggleTodo={onToggleTodo} onColorPickerChange={onColorPickerChange} />
                     <hr />
                     <h2>Todos Table</h2>
                     <div style={{ width: '60%', margin: 'auto' }}>

@@ -1,4 +1,5 @@
 .todo-list {
+    position: relative;
     padding: 15px 0 0;
     list-style: none;
     display: grid;
@@ -7,9 +8,22 @@
 }
 
 .todo-list li {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background-color: var(--clr1bg);
 }
+
+
+.todo-list .color-picker {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+}
+
