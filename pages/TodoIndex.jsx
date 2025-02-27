@@ -39,9 +39,11 @@ export function TodoIndex() {
     function onToggleTodo(todo) {
         const todoToUpdate = { ...todo, isDone: !todo.isDone }
         updateTodo(todoToUpdate)
-            .then(() => {
-                setBalance(user._id, user.balance + 5)
-
+            .then((todo) => {
+                if (todo.isDone) 
+                {
+                    setBalance(user._id, user.balance + 10)
+                }
             })
             .catch(err => { console.log('err2:', err) })
     }
@@ -53,7 +55,6 @@ export function TodoIndex() {
     function onColorPickerChange(color, todo){
         const updatedTodo = { ...todo, color: color }
         updateTodo(updatedTodo)
-        // todoService.save(updatedTodo)
     }
 
     return (

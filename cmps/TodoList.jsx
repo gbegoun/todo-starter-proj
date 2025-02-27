@@ -2,10 +2,12 @@ import { TodoPreview } from "./TodoPreview.jsx"
 const { Link } = ReactRouterDOM
 
 export function TodoList({ todos, onRemoveTodo, onToggleTodo, onColorPickerChange }) {
-    const handleColorSelect = (event) => {
-        onColorPickerChange(event.target.value, todo);
-    
-};
+
+
+    function handleColorPickerChange(ev, todo){
+        onColorPickerChange(ev.target.value, todo)
+    }
+
     return (
         <ul className="todo-list">
             {todos.map(todo =>
@@ -14,10 +16,10 @@ export function TodoList({ todos, onRemoveTodo, onToggleTodo, onColorPickerChang
                         type="color"
                         id="colorPicker"
                         name="colorPicker"
-                        value={todo.color || '#ffffff'}
-                        onChange={handleColorSelect}
+                        value={todo.color || '#99a695'}
+                        onChange={(ev)=>handleColorPickerChange(ev, todo)}
                     />
-                    <TodoPreview todo={todo} onToggleTodo={() => onToggleTodo(todo)} />
+                    <TodoPreview todo={todo} onToggleTodo={() => onToggleTodo(todo)}/>
                     <section>
                         <button onClick={() => onRemoveTodo(todo._id)}>Remove</button>
                         <button><Link to={`/todo/${todo._id}`}>Details</Link></button>

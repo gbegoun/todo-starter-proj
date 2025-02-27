@@ -20,10 +20,10 @@ export function loadTodos() {
 
 export function updateTodo(todo){
     store.dispatch({ type: UPDATE_TODO, todo })
+    const prev_todo = {...store.getState().todoModule.todos.find(t => t._id === todo._id)}
     return todoService.save(todo)
             .catch(err => {
-                const unToggledTodo = { ...todo, isDone: !todo.isDone }
-                store.dispatch({ type: UPDATE_TODO, unToggledTodo })
+                store.dispatch({ type: UPDATE_TODO, prev_todo })
                 console.log('Cannot update todo', err)
                 throw err
             })
