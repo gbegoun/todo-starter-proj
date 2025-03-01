@@ -3,7 +3,6 @@ const { Link } = ReactRouterDOM
 
 export function TodoList({ todos, onRemoveTodo, onToggleTodo, onColorPickerChange }) {
 
-
     function handleColorPickerChange(ev, todo){
         onColorPickerChange(ev.target.value, todo)
     }

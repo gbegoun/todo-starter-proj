@@ -10,7 +10,7 @@ export const CHANGE_BY = 'CHANGE_BY'
 export const SET_USER = 'SET_USER'
 export const SET_USER_BALANCE = 'SET_USER_BALANCE'
 export const ADD_TO_USER_BALANCE = 'ADD_TO_USER_BALANCE'
-
+export const UPDATE_USER = 'UPDATE_USER'
 
 const initialState = {
     count: 101,
@@ -51,7 +51,10 @@ export function userReducer(state = initialState, cmd = {}) {
             return {
                 ...state, loggedInUser: { ...state.loggedInUser, balance: state.loggedInUser.balance + cmd.balance }
             }
-
+        case UPDATE_USER:
+            return {
+                ...state, loggedInUser: cmd.user
+            }
         default:
             return state
 

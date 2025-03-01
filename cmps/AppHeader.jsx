@@ -1,20 +1,25 @@
-const { useState } = React
+const { useState, useEffect } = React
 const { Link, NavLink } = ReactRouterDOM
 const { useNavigate } = ReactRouter
 const { useSelector, useDispatch } = ReactRedux
 
 import { logout } from '../store/actions/user.actions.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
-import { LoginSignup }  from './LoginSignup.jsx'
-import { UserMsg }      from "./UserMsg.jsx"
+import { LoginSignup } from './LoginSignup.jsx'
+import { UserMsg } from "./UserMsg.jsx"
 
 export function AppHeader() {
 
     const user = useSelector(storeState => storeState.userModule.loggedInUser)
-    
+
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        document.body.style.color = user && user.color || '#000000';
+        document.body.style.backgroundColor = user && user.backgroundColor || '#ffffff';
+    }, [user]);
 
     function onLogout() {
         console.log("LOGOUT")
@@ -50,6 +55,7 @@ export function AppHeader() {
                     <NavLink to="/about" >About</NavLink>
                     <NavLink to="/todo" >Todos</NavLink>
                     <NavLink to="/dashboard" >Dashboard</NavLink>
+                    <NavLink to="/user" >User</NavLink>
                 </nav>
             </section>
             <UserMsg />
